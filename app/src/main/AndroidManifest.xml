@@ -20,6 +20,10 @@
             android:name=".Dashboard"
             android:label="@string/title_activity_dashboard" >
         </activity>
+        <activity
+            android:name=".DataParse"
+            android:label="@string/title_activity_data_parse" >
+        </activity>
     </application>
 
 </manifest>

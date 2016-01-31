@@ -1,0 +1,40 @@
+  {
+	  "kayitlar": [
+		  {
+			  "id": 0,
+			  "ad": "Tuva",
+			  "soyad": "Ergun",
+			  "sehir": "Konya"
+		  },
+		  {
+			  "id": 1,
+			  "ad": "Ayca",
+			  "soyad": "Akduman",
+			  "sehir": "Istanbul"
+		  },
+		  {
+			  "id": 2,
+			  "ad": "Ibrahim",
+			  "soyad": "Sengul",
+			  "sehir": "Duzce"
+		  },
+		  {
+			  "id": 3,
+			  "ad": "Nermin",
+			  "soyad": "Solmaz",
+			  "sehir": "Trabzon"
+		  },
+		  {
+			  "id": 4,
+			  "ad": "Gokhan",
+			  "soyad": "Eroglu",
+			  "sehir": "Erzincan"
+		  },
+		  {
+			  "id": 5,
+			  "ad": "Merve",
+			  "soyad": "Karakoca",
+			  "sehir": "Adana"
+		  }
+	  ]
+  }

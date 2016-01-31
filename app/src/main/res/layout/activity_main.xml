@@ -52,6 +52,13 @@
         android:inputType="textPassword"/>
 
     <Button
+        android:id="@+id/button_data_parse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:text="@string/title_activity_data_parse"/>
+
+    <Button
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

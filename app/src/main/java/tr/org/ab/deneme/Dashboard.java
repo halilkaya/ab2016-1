@@ -1,16 +1,29 @@
 package tr.org.ab.deneme;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class Dashboard extends AppCompatActivity {
 
     private TextView username;
     private String mUsername;
+    private ListView cities;
+
+    private ArrayList<String> cityList = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +36,92 @@ public class Dashboard extends AppCompatActivity {
         mUsername = getIntent().getStringExtra("username");
         username.setText("Selam " + mUsername);
 
+        cities = (ListView) findViewById(R.id.cities);
+
+        fillInCities();
+        adapter = new ArrayAdapter<String>(
+                Dashboard.this,
+                android.R.layout.simple_list_item_1,
+                cityList
+        );
+        cities.setAdapter(adapter);
+
+        cities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(
+                        Dashboard.this,
+                        "Sectiginiz sehir: " + cityList.get(position),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+        cities.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                showAlertDialog(position);
+                return false;
+            }
+        });
+
+    }
+
+    private void showAlertDialog(final int position) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(Dashboard.this);
+        dialog.setTitle("Emin misiniz?");
+        dialog.setMessage(
+                cityList.get(position) + " kaydini silmek istediginize emin misiniz?"
+        );
+        dialog.setCancelable(false);
+        dialog.setPositiveButton(
+                "Evet",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteCity(position);
+                        Toast.makeText(
+                                Dashboard.this,
+                                "Kayit basariyla silindi!",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        dialog.dismiss();
+                    }
+                }
+        );
+        dialog.setNegativeButton(
+                "Hayır",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+        dialog.create().show();
+    }
+
+    private void deleteCity(int position) {
+        cityList.remove(position);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void fillInCities() {
+        cityList.add("Istanbul");
+        cityList.add("Ankara");
+        cityList.add("Izmir");
+        cityList.add("Adana");
+        cityList.add("Aydin");
+        cityList.add("Istanbul");
+        cityList.add("Ankara");
+        cityList.add("Izmir");
+        cityList.add("Adana");
+        cityList.add("Aydin");
+        cityList.add("Istanbul");
+        cityList.add("Ankara");
+        cityList.add("Izmir");
+        cityList.add("Adana");
+        cityList.add("Aydin");
     }
 
     @Override
