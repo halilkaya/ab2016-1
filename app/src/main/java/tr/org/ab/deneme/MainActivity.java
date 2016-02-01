@@ -21,10 +21,16 @@ public class MainActivity extends AppCompatActivity {
     private String mUsername;
     private String mPassword;
 
+    private ABSharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sp = new ABSharedPreferences(MainActivity.this);
+
+        checkLogin();
 
         init();
 
@@ -43,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 mPassword = password.getText().toString();
                 if (mUsername.equals("ali") &&
                     mPassword.equals("123")) {
+
+                    sp.editor.putBoolean("isLoggedIn", true);
+                    sp.editor.commit();
+
                     openDashboard();
+                    finish();
                 }
             }
         });
@@ -61,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
         buttonLogin.setOnLongClickListener(listener);
 
+    }
+
+    private void checkLogin() {
+        boolean isLoggedIn = sp.preferences.getBoolean("isLoggedIn", false);
+        if (isLoggedIn) {
+            openDashboard();
+            finish();
+        }
     }
 
     private void openDashboard() {

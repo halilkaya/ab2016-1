@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/ad_soyad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/id"
+        android:textSize="22sp"
+        android:text="Ad Soyad"/>
+
+    <TextView
+        android:id="@+id/sehir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="#777"
+        android:text="Sehir"/>
+
+</RelativeLayout>

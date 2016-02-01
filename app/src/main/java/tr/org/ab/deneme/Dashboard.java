@@ -2,6 +2,7 @@ package tr.org.ab.deneme;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,17 +23,23 @@ public class Dashboard extends AppCompatActivity {
     private TextView username;
     private String mUsername;
     private ListView cities;
+    private Button logoutButton;
 
     private ArrayList<String> cityList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
+
+    private ABSharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        sp = new ABSharedPreferences(Dashboard.this);
+
         Log.d("yasamdongusu", "Activity baslatildi.");
 
+        logoutButton = (Button) findViewById(R.id.logout_button);
         username = (TextView) findViewById(R.id.username);
         mUsername = getIntent().getStringExtra("username");
         username.setText("Selam " + mUsername);
@@ -65,6 +73,24 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+    }
+
+    private void logout() {
+        sp.editor.remove("isLoggedIn");
+        sp.editor.commit();
+        Intent mainIntent = new Intent(
+                Dashboard.this,
+                MainActivity.class
+        );
+        startActivity(mainIntent);
+        finish();
     }
 
     private void showAlertDialog(final int position) {

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DataParse extends AppCompatActivity {
 
-    private TextView result;
+    private ListView liste;
     private ArrayList<DataModel> insanlar = new ArrayList<>();
 
     @Override
@@ -24,12 +24,19 @@ public class DataParse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_parse);
 
-        result = (TextView) findViewById(R.id.result);
-
+        liste = (ListView) findViewById(R.id.liste);
         parseData();
+        getList();
 
-        result.setText(insanlar.get(2).ad);
+    }
 
+    private void getList() {
+        CustomAdapter adapter = new CustomAdapter(
+                DataParse.this,
+                R.layout.item_row,
+                insanlar
+        );
+        liste.setAdapter(adapter);
     }
 
     private void parseData() {
