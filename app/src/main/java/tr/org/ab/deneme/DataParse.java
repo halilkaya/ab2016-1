@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,10 +25,50 @@ public class DataParse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_parse);
 
+//        insertDummyData();
+        getDummyData(10);
+
         liste = (ListView) findViewById(R.id.liste);
         parseData();
         getList();
 
+    }
+
+    private void getDummyData(int id) {
+        DBHelper db = new DBHelper(DataParse.this);
+        DataModel data = db.getData(id);
+        Toast.makeText(
+                DataParse.this,
+                "Veritabanindan getirilen kayit:\n" +
+                        "ID: " + String.valueOf(data.id) + "\n" +
+                        "Ad: " + data.ad + "\n" +
+                        "Soyad: " + data.soyad + "\n" +
+                        "Sehir: " + data.sehir,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    private void insertDummyData() {
+        DBHelper db = new DBHelper(DataParse.this);
+        boolean result = db.insertData(
+                10,
+                "Ahmet",
+                "Mehmet",
+                "Rize"
+        );
+        if (result) {
+            Toast.makeText(
+                    DataParse.this,
+                    "Kayit basariyla eklendi!",
+                    Toast.LENGTH_SHORT
+            ).show();
+        } else {
+            Toast.makeText(
+                    DataParse.this,
+                    "Kayit eklenirken bir hata olustu!",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 
     private void getList() {
