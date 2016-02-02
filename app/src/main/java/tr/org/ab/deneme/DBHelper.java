@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "AB2016";
@@ -61,6 +63,69 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.getString(2),
                 cursor.getString(3)
         );
+    }
+
+    public ArrayList<DataModel> getData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM people",
+                null
+        );
+        cursor.moveToFirst();
+        ArrayList<DataModel> result = new ArrayList<>();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            DataModel data = new DataModel(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+            result.add(data);
+            cursor.moveToNext();
+        }
+        return result;
+    }
+
+    public boolean deleteData(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+//        With built-in delete method:
+//        db.delete("people", "id=?", new String[] { Integer.toString(id) });
+
+//        With SQL statement:
+        db.execSQL("DELETE FROM people WHERE id=" + String.valueOf(id));
+
+        return true;
+    }
+
+    public boolean updateData(
+            int id,
+            String ad,
+            String soyad,
+            String sehir
+    ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+//        With SQL statement:
+//        db.execSQL(
+//                "UPDATE people SET ad=" + ad + ", " +
+//                "soyad=" + soyad + ", sehir=" + sehir + " " +
+//                "WHERE id=" + String.valueOf(id)
+//        );
+
+//        With built-in method:
+        ContentValues row = new ContentValues();
+        row.put("ad", ad);
+        row.put("soyad", soyad);
+        row.put("sehir", sehir);
+        db.update(
+                "people",
+                row,
+                "id=?",
+                new String[] { Integer.toString(id) }
+        );
+
+        return true;
     }
 
 }

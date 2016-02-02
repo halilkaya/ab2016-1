@@ -2,6 +2,7 @@ package tr.org.ab.deneme;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -26,12 +27,28 @@ public class DataParse extends AppCompatActivity {
         setContentView(R.layout.activity_data_parse);
 
 //        insertDummyData();
-        getDummyData(10);
+//        getDummyData(10);
+//        deleteDummyData();
+//        updateDummyData();
+        getAllData();
 
         liste = (ListView) findViewById(R.id.liste);
         parseData();
         getList();
 
+    }
+
+    private void getAllData() {
+        DBHelper db = new DBHelper(DataParse.this);
+        ArrayList<DataModel> data = db.getData();
+        for (DataModel item : data) {
+            Log.d(
+                    "dbResult",
+                    String.valueOf(item.id) + ", " +
+                    item.ad + " " + item.soyad + ", " +
+                    item.sehir
+            );
+        }
     }
 
     private void getDummyData(int id) {
@@ -48,13 +65,41 @@ public class DataParse extends AppCompatActivity {
         ).show();
     }
 
+    private void deleteDummyData() {
+        DBHelper db = new DBHelper(DataParse.this);
+        if (db.deleteData(11)) {
+            Toast.makeText(
+                    DataParse.this,
+                    "Kayit silindi!",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+    private void updateDummyData() {
+        DBHelper db = new DBHelper(DataParse.this);
+        boolean result = db.updateData(
+                12,
+                "Hayriye",
+                "Deneme",
+                "Van"
+        );
+        if (result) {
+            Toast.makeText(
+                    DataParse.this,
+                    "Kayit guncellendi!",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
     private void insertDummyData() {
         DBHelper db = new DBHelper(DataParse.this);
         boolean result = db.insertData(
-                10,
-                "Ahmet",
-                "Mehmet",
-                "Rize"
+                12,
+                "Ayse",
+                "Fatma",
+                "Ordu"
         );
         if (result) {
             Toast.makeText(
