@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
     private Button buttonLogin;
     private Button buttonDataParse;
+    private Button buttonRemoteJSON;
 
     private String mUsername;
     private String mPassword;
@@ -72,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
 
         buttonLogin.setOnLongClickListener(listener);
 
+        buttonRemoteJSON.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent remoteJsonIntent = new Intent(
+                        MainActivity.this,
+                        RemoteJSON.class
+                );
+                startActivity(remoteJsonIntent);
+            }
+        });
+
     }
 
     private void checkLogin() {
@@ -96,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         buttonLogin = (Button) findViewById(R.id.button_login);
         buttonDataParse = (Button) findViewById(R.id.button_data_parse);
+        buttonRemoteJSON = (Button) findViewById(R.id.button_remote_json);
     }
 
     @Override

@@ -11,5 +11,6 @@
     <string name="bottom_text">Akademik Bilisim</string>
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_activity_data_parse">DataParse</string>
+    <string name="title_activity_remote_json">RemoteJSON</string>
 
 </resources>
